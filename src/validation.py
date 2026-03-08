@@ -12,14 +12,18 @@ logger = logging.getLogger(__file__)
 
 def check_input_file(input_path):
     if not os.path.isfile():
-        logger.error(f"Input file not found {input_path}")
+        logger.error(f"Fatal error: input file does not exist.")
         sys.exit(0)
 
 
 def check_headers(headers):
-    if set(headers) != input_schema:
-        logger.error(f"Wrong column names! Have {headers}, instead of {list(input_schema)}")
+    if len(headers) != len(input_schema):
+        logger.error(f"Fatal error: input file has malformed rows with inconsistent column count.")
         sys.exit(0)
+    for element in input_schema:
+        if element not in set(headers):
+            logger.error(f"Fatal error: required header columns are missing.")
+            sys.exit(0)
 
 
 def check_output_folder(file_path):

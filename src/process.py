@@ -6,7 +6,7 @@ from statistics import mean
 
 from src.data_struct import categories
 from src.timed import timed
-from src.validation import check_headers, check_output_folder, is_valid_row
+from src.validation import check_input_file, check_headers, check_output_folder, is_valid_row
 
 
 logger = logging.getLogger(__name__)
@@ -39,11 +39,10 @@ def write_result(file_path, grouped_data):
     logger.info(f"Process finished. Saved result to the {file_path}")
 
 
-def get_valid_data(file_path):
+def get_valid_data(raw_data):
     valid_data = []
     invalid_rows_count = 0
-    data = read_csv_file(file_path)
-    for row_number, row in enumerate(data, 1):
+    for row_number, row in enumerate(raw_data, 1):
         if is_valid_row(row, row_number):
             valid_data.append(row)
         else:
@@ -78,7 +77,9 @@ def group_data(data):
 def process(args):
     input_path = args.input_path
     output_path = args.output_path
-    check_output_folder(output_path)
-    valid_data = get_valid_data(input_path)
+    check_input_file(input_path)
+    raw_data = read_csv_file(input_path)
+    valid_data = get_valid_data(raw_data)
     grouped_data = group_data(valid_data)
+    check_output_folder(output_path)
     write_result(output_path, grouped_data)
