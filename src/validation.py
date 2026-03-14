@@ -54,8 +54,14 @@ def is_valid_amount(amount, row_number):
     except ValueError:
         logging.warning(f"Row {row_number}: {amount=} not a float number.")
         return False
+    if not "." in amount:
+        logging.warning(f"Row {row_number}: {amount=} don't have point.")
+        return False
+    if len(amount.split(".")[0]) < 1:
+        logging.warning(f"Row {row_number}: {amount=} don't have number in integral part.")
+        return False
     if len(amount.split(".")[-1]) != 2:
-        logging.warning(f"Row {row_number}: {amount=} don't have two numbers after point.")
+        logging.warning(f"Row {row_number}: {amount=} don't have two numbers in decimal part")
         return False
     return True
 

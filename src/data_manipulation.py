@@ -30,8 +30,12 @@ def group_data(data):
         all_amount_list = [
             round(float(el["amount"]), 2) for el in category_rows
         ]
-        total_amount = sum(all_amount_list)
-        average_amount = round(mean(all_amount_list), 2)
+        if all_amount_list:
+            total_amount = sum(all_amount_list)
+            average_amount = round(mean(all_amount_list), 2)
+        else:
+            total_amount = 0.00
+            average_amount = 0.00
         category_row = {
             "category": category,
             "row_count": len(category_rows),
