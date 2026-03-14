@@ -11,7 +11,7 @@ logger = logging.getLogger(__file__)
 
 
 def check_input_file(input_path):
-    if not os.path.isfile():
+    if not os.path.isfile(input_path):
         logger.error(f"Fatal error: input file does not exist.")
         sys.exit(0)
 
