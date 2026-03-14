@@ -8,7 +8,7 @@ from src.validation import check_headers
 logger = logging.getLogger(__name__)
 
 
-def read_csv_file(file_path):
+def read_csv_file(file_path: str) -> list[dict]:
     data = []
     logger.info(f"Get data from input file {file_path}")
     try:
@@ -26,7 +26,7 @@ def read_csv_file(file_path):
         sys.exit(0)
 
 
-def write_result(file_path, grouped_data):
+def write_result(file_path: str, grouped_data: list[dict]) -> None:
     fieldnames = list(grouped_data[0].keys())
     with open(file_path, "w", newline="") as output_file:
         writer = csv.DictWriter(output_file, fieldnames=fieldnames)

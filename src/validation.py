@@ -10,13 +10,13 @@ from src.data_struct import categories, input_schema
 logger = logging.getLogger(__name__)
 
 
-def check_input_file(input_path):
+def check_input_file(input_path: str) -> None:
     if not os.path.isfile(input_path):
         logger.error(f"Fatal error: input file does not exist.")
         sys.exit(0)
 
 
-def check_headers(headers):
+def check_headers(headers: list[str]) -> None:
     if len(headers) != len(input_schema):
         logger.error(f"Fatal error: input file has malformed rows with inconsistent column count.")
         sys.exit(0)
@@ -26,29 +26,29 @@ def check_headers(headers):
             sys.exit(0)
 
 
-def check_output_folder(file_path):
-    folder_path = os.path.dirname(file_path)
+def check_output_directory(output_path: str) -> None:
+    folder_path = os.path.dirname(output_path)
     if not os.path.isdir(folder_path):
         logger.warning(f"{folder_path} folder doesn't exist.")
         os.makedirs(folder_path)
         logger.info(f"{folder_path} created")
 
 
-def is_valid_id(row_id, row_number):
+def is_valid_id(row_id: str, row_number: str) -> bool:
     if not row_id.isdigit():
         logging.warning(f"Row {row_number}: {row_id=} is not an integer.")
         return False
     return True
 
 
-def is_valid_category(category, row_number):
+def is_valid_category(category: str, row_number:str) -> bool:
     if not category in set(categories):
         logging.warning(f"Row {row_number}: Invalid category {category=}")
         return False
     return True
 
 
-def is_valid_amount(amount, row_number):
+def is_valid_amount(amount: str, row_number: str) -> bool:
     try:
         float(amount)
     except ValueError:
@@ -66,7 +66,7 @@ def is_valid_amount(amount, row_number):
     return True
 
 
-def is_valid_created_at(created_at, row_number):
+def is_valid_created_at(created_at: str, row_number: str) -> bool:
     try:
         created_at_datetime = datetime.strptime(created_at, "%Y-%m-%d-%H:%M:%S")
     except ValueError:
@@ -78,14 +78,14 @@ def is_valid_created_at(created_at, row_number):
     return True
 
 
-def is_valid_status(status, row_number):
+def is_valid_status(status: str, row_number: str) -> bool:
     if status not in {"active", "inactive"}:
         logger.warning(f"Row {row_number}: Unknown status {status=}")
         return False
     return True
 
 
-def is_valid_row(row, row_number):
+def is_valid_row(row: dict, row_number: str) -> bool:
     if None in row.values():
         logger.warning(f"Row {row_number}: There are missing columns in the {row=}")
         return False

@@ -11,7 +11,7 @@ from conf.logger_conf import get_logging_config
 logger = logging.getLogger(__name__)
 
 
-def set_logger(log_level):
+def set_logger(log_level: str) -> None:
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     log_file = f"app_run_{timestamp}.log"
     config = get_logging_config(log_file)
@@ -35,5 +35,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     set_logger(args.log_level)
     logger.info("Start processing")
-    process(args)
+    process(input_path=args.input_path, output_path=args.output_path)
     logger.info("End processing")

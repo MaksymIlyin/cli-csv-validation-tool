@@ -62,10 +62,10 @@ def test_check_headers_missing_required_column_exits(monkeypatch):
 
 
 # ----------------------------
-# check_output_folder
+# check_output_directory
 # ----------------------------
 
-def test_check_output_folder_existing(monkeypatch):
+def test_check_output_directory_existing(monkeypatch):
     monkeypatch.setattr(m.os.path, "dirname", lambda path: "/tmp/output")
     monkeypatch.setattr(m.os.path, "isdir", lambda path: True)
 
@@ -76,12 +76,12 @@ def test_check_output_folder_existing(monkeypatch):
 
     monkeypatch.setattr(m.os, "makedirs", fake_makedirs)
 
-    m.check_output_folder("/tmp/output/file.csv")
+    m.check_output_directory("/tmp/output/file.csv")
 
     assert called["makedirs"] is False
 
 
-def test_check_output_folder_creates_missing_folder(monkeypatch):
+def test_check_output_directory_creates_missing_directory(monkeypatch):
     monkeypatch.setattr(m.os.path, "dirname", lambda path: "/tmp/output")
     monkeypatch.setattr(m.os.path, "isdir", lambda path: False)
 
@@ -92,7 +92,7 @@ def test_check_output_folder_creates_missing_folder(monkeypatch):
 
     monkeypatch.setattr(m.os, "makedirs", fake_makedirs)
 
-    m.check_output_folder("/tmp/output/file.csv")
+    m.check_output_directory("/tmp/output/file.csv")
 
     assert created["path"] == "/tmp/output"
 

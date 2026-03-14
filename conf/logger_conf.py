@@ -5,7 +5,7 @@ def get_logging_config(log_filename):
         'disable_existing_loggers': False,
         'formatters': {
             'standard': {
-                'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+                'format': '%(asctime)s [%(levelname)8s] %(name)15s: %(message)s',
                 'datefmt': '%Y-%m-%d %H:%M:%S'
             },
         },
