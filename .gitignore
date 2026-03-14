@@ -2,5 +2,8 @@
 .vscode
 
 *.csv
+logs/
+
+.venv/
 
 __pycache__
