@@ -7,6 +7,7 @@ from src.validation import check_headers
 
 logger = logging.getLogger(__name__)
 
+
 def read_csv_file(file_path):
     data = []
     logger.info(f"Get data from input file {file_path}")

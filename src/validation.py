@@ -7,7 +7,7 @@ from datetime import datetime
 from src.data_struct import categories, input_schema
 
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 def check_input_file(input_path):
