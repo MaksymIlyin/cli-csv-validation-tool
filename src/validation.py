@@ -73,7 +73,7 @@ def is_valid_created_at(created_at, row_number):
 
 
 def is_valid_status(status, row_number):
-    if "status" not in {"active", "inactive"}:
+    if status not in {"active", "inactive"}:
         logger.warning(f"Row {row_number}: Unknown status {status=}")
         return False
     return True
